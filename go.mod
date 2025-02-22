@@ -9,5 +9,5 @@ tool (
 
 require (
 	github.com/dearing/go-cross-compile v1.0.8 // indirect
-	github.com/dearing/go-live-reload v0.0.2 // indirect
+	github.com/dearing/go-live-reload v0.1.1 // indirect
 )
