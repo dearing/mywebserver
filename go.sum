@@ -1,0 +1,4 @@
+github.com/dearing/go-cross-compile v1.0.8 h1:sUmNWq2F9u1Sk4pymlS7NBO+xRM+0WrooIwXKOcTeBs=
+github.com/dearing/go-cross-compile v1.0.8/go.mod h1:LOgZivyYuU7KIMcGLPGDqNxTAw7elV5OeweXcFxRX9g=
+github.com/dearing/go-live-reload v0.0.2 h1:2kD0x/4DjPIyZZxFOFLEqCZ3e1tIWhOV686FZk0TVhA=
+github.com/dearing/go-live-reload v0.0.2/go.mod h1:NWyDVahBPob+0CzguYF5qgJlHTVpwZJrQpHOeMXGMro=

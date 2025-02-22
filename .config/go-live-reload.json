@@ -1,0 +1,28 @@
+{
+  "name": "mywebserver",
+  "description": "A simple live reload server",
+  "builds": [
+    {
+      "Name": "mywebserver",
+      "SrcDir": ".",
+      "OutDir": "build",
+      "BuildArgs": [
+        "build",
+        "-o",
+        "build/mywebserver"
+      ],
+      "BuildEnvirons": null,
+      "RunCommand": "./mywebserver",
+      "RunArgs": [
+        "--bind",
+        ":8081"
+      ],
+      "RunEnvirons": null,
+      "RunWorkDir": "build",
+      "Globs": [
+        "*.go"
+      ],
+      "HeartBeat": 1000000000
+    }
+  ]
+}
