@@ -14,10 +14,5 @@ cross compile and basic packaging
 
 - `go-live-reload.json`
 
-live build and run-rerun tool
+live build and run tool
 
-### go-github-release
-
-- `go-github-release`
-
-publish releases with artifacts
