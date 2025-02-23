@@ -1,0 +1,28 @@
+html {
+  background-color: #000000;
+  color: #5cb96c;
+  font-family: monospace;
+  font-size: larger;
+}
+
+a {
+  color: #5cb96c;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 100%;
+  width: 780px;
+}

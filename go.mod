@@ -6,6 +6,7 @@ tool (
 	github.com/dearing/go-cross-compile
 	github.com/dearing/go-github-release
 	github.com/dearing/go-live-reload
+	github.com/dearing/mywebserver
 )
 
 require (

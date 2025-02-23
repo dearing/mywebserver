@@ -20,7 +20,7 @@
       "RunEnvirons": null,
       "RunWorkDir": "build",
       "Globs": [
-        "*.go"
+        "*.go","wwwroot/*", "wwwroot/*/*"
       ],
       "HeartBeat": 1000000000
     }
