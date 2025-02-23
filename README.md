@@ -4,7 +4,7 @@ demo portable webserver with server side events and embedded assets
 
 ## about
 
-This project serves to test and demostrate three other projects that are stand alone tools within Go's 1.24 module definition (see [go.mod](go.mod)) and built on using the standard library.
+This project serves to test and demostrate three other projects that are stand alone tools within Go's 1.24 module definition (see [go.mod](go.mod)) and built only using the standard library.
 
 - https://github.com/dearing/go-cross-compile
 - https://github.com/dearing/go-github-release
