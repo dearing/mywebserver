@@ -16,15 +16,36 @@ import (
 	"time"
 )
 
+var argVersion = flag.Bool("version", false, "print version information")
+
 var bind = flag.String("bind", ":8080", "bind address")
-var sseDuration = flag.Duration("sse-duration", 1*time.Second, "sse duration")
+var sseDuration = flag.Duration("sse-duration", 1*time.Second, "SSE ticker duration")
 
 //go:embed embeded
 var embedFS embed.FS
 
+func usage() {
+	println(`Usage: mywebserver [options]
+
+Demo portable webserver with server side events and embedded assets.
+
+- https://github.com/dearing/mywebserver
+
+Options:
+`)
+	flag.PrintDefaults()
+}
+
 func main() {
 
+	flag.Usage = usage
 	flag.Parse()
+
+	// if the version flag is set, print version information and exit
+	if *argVersion {
+		versionInfo()
+		return
+	}
 
 	// get a subtree fs of our embedded fs at wwwFS for static hosting
 	wwwFS, err := fs.Sub(embedFS, "embeded/wwwroot")
@@ -54,13 +75,14 @@ func main() {
 	// simple hello handler
 	handler.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("hello received")
-		w.Write([]byte("hello world!"))
+		fmt.Fprintf(w, "hello world!")
 	})
 
-	// simple hello handler
+	// report embedded debug information about ourselves via a template
 	handler.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("version called")
 
+		// templatefs should be a subtree of our embedded fs
 		template, err := template.ParseFS(templateFS, "version.html")
 		if err != nil {
 			slog.Error("version/template parse", "error", err)
@@ -68,6 +90,7 @@ func main() {
 			return
 		}
 
+		// at build, go *can* embded handy information about the build
 		info, ok := debug.ReadBuildInfo()
 		if !ok {
 			slog.Error("version/build info", "error", err)
@@ -75,6 +98,7 @@ func main() {
 			return
 		}
 
+		// with our info object ready, we can toss it over to the template to render
 		err = template.Execute(w, info)
 		if err != nil {
 			slog.Error("version/template execute", "error", err)
@@ -131,10 +155,11 @@ func main() {
 		slog.Info("http server stopped")
 	}()
 
+	// we block until a signal is received
 	<-sigchan
 
-	// the server gets 10 seconds to shutdown
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	// the server gets 2 seconds to shut itself down gracefully
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 	if err := server.Shutdown(ctx); err != nil {
 		slog.Error("server shutdown", "error", err)
@@ -143,7 +168,7 @@ func main() {
 	slog.Info("server stopped")
 }
 
-func VersionInfo() {
+func versionInfo() {
 	// seems like a nice place to sneak in some debug information
 	info, ok := debug.ReadBuildInfo()
 	if ok {
