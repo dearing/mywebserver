@@ -11,7 +11,7 @@ This project serves to test and demostrate three other projects that are stand a
 - https://github.com/dearing/go-live-reload
 
 
-Where `go-live-reload` continuously builds and runs a set of projects, `go-cross-compile` builds binaries for combinations of architectures and operating systems and `go-github-release` publishes these artifacts on github. Developing a backend is what `go-live-reload` is mostly useful for so this project is a webserver that also serves to demostarte and mess around with embedded filesystems, server side events, http handlers with context, channels and html/templates.
+Where `go-live-reload` continuously builds and runs a set of projects, `go-cross-compile` builds binaries for combinations of architectures and operating systems and `go-github-release` publishes these artifacts on github. Developing a backend is what `go-live-reload` is mostly useful for so this project is a webserver that also serves to demonstrate and mess around with embedded filesystems, server side events, http handlers with context, channels and html/templates.
 
 ## go tool demostration
 ```
