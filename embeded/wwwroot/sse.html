@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="container">
+    <h1>mywebserver</h1>
+    <h2>server server events</h2>
+    <p>
+        Javascript (js/main.js) will connect to the /events endpoint and accept server side events from the server.
+        Note that SSE are not json objects but streams, we would use websockets in that situation.
+        On the backend, the SSE endpoint has a loop that waits for a ticker to send an event.
+        Since we have only one channel sending events, only one client wins a 'car' at a time. Duplicate your tabs
+        to see the event stream effectively round robin between clients.
+        You can compare the client address in the message with the server logs.
+
+        Javascript is prepending the current unix timestamp to demonstrate manipulation of the event stream as client.
+    </p>
+    <h2>event stream</h2>
+    <p class="events"></p>
+    <script src="js/sse.js"></script>
+</body>
+
+</html>

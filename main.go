@@ -14,6 +14,8 @@ import (
 	"runtime/debug"
 	"syscall"
 	"time"
+
+	"golang.org/x/net/websocket"
 )
 
 var argVersion = flag.Bool("version", false, "print version information")
@@ -152,6 +154,32 @@ func main() {
 		Addr:    *bind,
 		Handler: handler,
 	}
+
+	handler.Handle("/ws", websocket.Handler(func(ws *websocket.Conn) {
+		slog.Info("websocket connected", "remote", ws.Request().RemoteAddr)
+		type T struct {
+			Message string `json:"message"`
+		}
+		defer ws.Close()
+
+		ctx := ws.Request().Context()
+
+		for {
+			select {
+			case <-ctx.Done():
+				slog.Info("websocket disconnected", "remote", ws.Request().RemoteAddr)
+				return
+
+			case <-ticker.C:
+				t := T{Message: "you win a car!"}
+				err := websocket.JSON.Send(ws, t)
+				if err != nil {
+					slog.Error("websocket send", "error", err)
+					return
+				}
+			}
+		}
+	}))
 
 	// spin off the the server in a goroutine, we can call shutdown on it later
 	go func() {
