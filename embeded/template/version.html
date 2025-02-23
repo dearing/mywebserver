@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>version info</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="container">
+    <h1>version info</h1>
+    <p>- <a href='https://github.com/dearing/mywebserver'>mywebserver</a></p>
+
+    <table>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+        {{ range .Settings }}
+        <tr>
+            <td>{{ .Key }}</td>
+            <td>{{ .Value }}</td>
+        </tr>
+        {{ end}}
+    </table>
+
+</body>
+
+</html>

@@ -5,23 +5,40 @@ import (
 	"embed"
 	"flag"
 	"fmt"
+	"io/fs"
 	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
+	"runtime/debug"
 	"syscall"
+	"text/template"
 	"time"
 )
 
 var bind = flag.String("bind", ":8080", "bind address")
 var sseDuration = flag.Duration("sse-duration", 1*time.Second, "sse duration")
 
-//go:embed wwwroot
-var wwwroot embed.FS
+//go:embed embeded
+var embedFS embed.FS
 
 func main() {
 
 	flag.Parse()
+
+	// get a subtree fs of our embedded fs at wwwFS for static hosting
+	wwwFS, err := fs.Sub(embedFS, "embeded/wwwroot")
+	if err != nil {
+		slog.Error("main/embedfs/wwwroot", "error", err)
+		return
+	}
+
+	// get a subtree fs of our embedded fs at template for templates
+	templateFS, err := fs.Sub(embedFS, "embeded/template")
+	if err != nil {
+		slog.Error("main/embedfs/template", "error", err)
+		return
+	}
 
 	// create a channel to listen for signals
 	sigchan := make(chan os.Signal, 1)
@@ -38,6 +55,33 @@ func main() {
 	handler.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("hello received")
 		w.Write([]byte("hello world!"))
+	})
+
+	// simple hello handler
+	handler.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
+		slog.Info("version called")
+
+		template, err := template.ParseFS(templateFS, "version.html")
+		if err != nil {
+			slog.Error("version/template parse", "error", err)
+			http.Error(w, "template error", http.StatusInternalServerError)
+			return
+		}
+
+		info, ok := debug.ReadBuildInfo()
+		if !ok {
+			slog.Error("version/build info", "error", err)
+			http.Error(w, "no build info", http.StatusInternalServerError)
+			return
+		}
+
+		err = template.Execute(w, info)
+		if err != nil {
+			slog.Error("version/template execute", "error", err)
+			http.Error(w, "template error", http.StatusInternalServerError)
+			return
+		}
+
 	})
 
 	// server side events handler to distribute cars
@@ -73,8 +117,8 @@ func main() {
 		}
 	})
 
-	// mount our embedded wwwroot and serve
-	handler.Handle("/", http.FileServerFS(wwwroot))
+	// server static files from our subtree fs of wwwroot
+	handler.Handle("/", http.FileServerFS(wwwFS))
 	server := &http.Server{
 		Addr:    *bind,
 		Handler: handler,
@@ -97,4 +141,15 @@ func main() {
 	}
 
 	slog.Info("server stopped")
+}
+
+func VersionInfo() {
+	// seems like a nice place to sneak in some debug information
+	info, ok := debug.ReadBuildInfo()
+	if ok {
+		slog.Info("build info", "main", info.Main.Path, "version", info.Main.Version)
+		for _, setting := range info.Settings {
+			slog.Info("build info", "key", setting.Key, "value", setting.Value)
+		}
+	}
 }

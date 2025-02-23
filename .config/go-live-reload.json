@@ -20,7 +20,7 @@
       "RunEnvirons": null,
       "RunWorkDir": "build",
       "Globs": [
-        "*.go","wwwroot/*", "wwwroot/*/*"
+        "*.go","embeded/template/*", "embeded/wwwroot/*/*"
       ],
       "HeartBeat": 1000000000
     }
