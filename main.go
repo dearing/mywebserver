@@ -5,6 +5,7 @@ import (
 	"embed"
 	"flag"
 	"fmt"
+	"html/template"
 	"io/fs"
 	"log/slog"
 	"net/http"
@@ -12,7 +13,6 @@ import (
 	"os/signal"
 	"runtime/debug"
 	"syscall"
-	"text/template"
 	"time"
 )
 
@@ -81,6 +81,11 @@ func main() {
 	// report embedded debug information about ourselves via a template
 	handler.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("version called")
+
+		start := time.Now()
+		defer func() {
+			slog.Info("version completed", "duration", time.Since(start))
+		}()
 
 		// templatefs should be a subtree of our embedded fs
 		template, err := template.ParseFS(templateFS, "version.html")
