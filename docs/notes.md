@@ -1,3 +1,7 @@
+# notes
+
+![good job!](good_job.png)
+
 ## server side events
 
 Service side events are http native and are like a radio station broadcasting secret numbers for spies who
