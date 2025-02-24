@@ -1,6 +1,6 @@
 # mywebserver
 
-demo portable webserver with server side events and embedded assets
+demo portable webserver with server side events, websockets and embedded assets
 
 ## about
 
