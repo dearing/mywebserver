@@ -38,6 +38,7 @@ function sendMessage(message) {
 }
 
 // close websocket on leaving the page
+// TODO: in theory this works but not seeing the context closing out on the backend
 window.onbeforeunload = () => {
   ws.close();
 }
