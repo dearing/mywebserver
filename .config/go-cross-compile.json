@@ -28,6 +28,11 @@
       "arch": "amd64"
     },
     {
+      "name": "mywebserver-linux-arm",
+      "os": "linux",
+      "arch": "arm"
+    },
+    {
       "name": "mywebserver-windows-amd64.exe",
       "os": "windows",
       "arch": "amd64"
