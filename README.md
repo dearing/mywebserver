@@ -13,6 +13,16 @@ This project serves to test and demostrate three other projects that are stand a
 
 Where `go-live-reload` continuously builds and runs a set of projects, `go-cross-compile` builds binaries for combinations of architectures and operating systems and `go-github-release` publishes these artifacts on github. Developing a backend is what `go-live-reload` is mostly useful for so this project is a webserver that also serves to demonstrate and mess around with embedded filesystems, server side events, websockets, context, channels and templates.
 
+## try out
+
+Clone this project on a host with Go 1.24+ and the tools will get pulled and compiled on demand.
+
+```
+git clone https://github.com/dearing/mywebserver.git
+cd mywebserver
+go tool go-live-reload --config-file .config/go-live-reload.json
+```
+
 ## go tool demostration
 ```
 go tool go-live-reload --config-file .config/go-live-reload.json
