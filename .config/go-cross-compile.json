@@ -18,6 +18,11 @@
       "arch": "arm64"
     },
     {
+      "name": "mywebserver-linux-arm",
+      "os": "linux",
+      "arch": "arm"
+    },
+    {
       "name": "mywebserver-linux-arm64",
       "os": "linux",
       "arch": "arm64"
