@@ -116,7 +116,7 @@ ws = new WebSocket(wsUrl);
 
 ws.onopen = () => {
   console.log('Connected');
-}
+};
 
 // T{Message = ""}
 ws.onmessage = (event) => {
