@@ -7,7 +7,7 @@ ws = new WebSocket(wsUrl);
 
 ws.onopen = () => {
   console.log('Connected');
-}
+};
 
 // T{Message = ""}
 ws.onmessage = (event) => {
@@ -35,10 +35,10 @@ function sendMessage(message) {
   } else {
     console.log("WebSocket is not open. Cannot send message.");
   }
-}
+};
 
 // close websocket on leaving the page
 // TODO: in theory this works but not seeing the context closing out on the backend
 window.onbeforeunload = () => {
   ws.close();
-}
+};
