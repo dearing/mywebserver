@@ -2,7 +2,7 @@ github.com/dearing/go-cross-compile v1.0.8 h1:sUmNWq2F9u1Sk4pymlS7NBO+xRM+0WrooI
 github.com/dearing/go-cross-compile v1.0.8/go.mod h1:LOgZivyYuU7KIMcGLPGDqNxTAw7elV5OeweXcFxRX9g=
 github.com/dearing/go-github-release v1.0.3 h1:7U5nuC9tuLGF/H/Hn48zVMvbtYWZEQA2Nz/GpebWQhM=
 github.com/dearing/go-github-release v1.0.3/go.mod h1:NXYhb9aSrQRD0thhPfe5UpS4ljUr5QdJdjCae9a2ZV4=
-github.com/dearing/go-live-reload v0.3.0 h1:USwfEEUPgcCixo8FaSk/vCndwZu9S3k1TjZRQkJjnww=
-github.com/dearing/go-live-reload v0.3.0/go.mod h1:NWyDVahBPob+0CzguYF5qgJlHTVpwZJrQpHOeMXGMro=
+github.com/dearing/go-live-reload v0.3.1 h1:NWXg75zQAeKTH1AbLXgxHCG1rpLxLxlVEQqrufSA8iY=
+github.com/dearing/go-live-reload v0.3.1/go.mod h1:NWyDVahBPob+0CzguYF5qgJlHTVpwZJrQpHOeMXGMro=
 golang.org/x/net v0.35.0 h1:T5GQRQb2y08kTAByq9L4/bz8cipCdA8FbRTXewonqY8=
 golang.org/x/net v0.35.0/go.mod h1:EglIi67kWsHKlRzzVMUD93VMSWGFOMSZgxFjparz1Qk=

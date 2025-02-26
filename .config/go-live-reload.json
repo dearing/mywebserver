@@ -28,22 +28,6 @@
       "runEnv": [
         "SECRET=friend"
       ]
-    },
-    {
-      "name": "test",
-      "description": "test",
-      "match": [
-        "*.go"
-      ],
-      "heartBeat": 1000000000,
-      "buildCmd": "true",
-      "buildDir": ".",
-      "runCmd": "go",
-      "runArgs": [
-        "test",
-        "./..."
-      ],
-      "runDir": "."
     }
   ]
 }
