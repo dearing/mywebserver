@@ -1,28 +1,49 @@
 {
-  "name": "mywebserver",
-  "description": "A simple live reload server",
+  "name": "github.com/dearing/go-live-reload",
+  "description": "example config",
   "builds": [
     {
-      "Name": "mywebserver",
-      "SrcDir": ".",
-      "OutDir": "build",
-      "BuildArgs": [
+      "name": "www",
+      "description": "frontend webserver",
+      "match": [
+        "*.go",
+        "embeded/template/*",
+        "embeded/wwwroot/*",
+        "embeded/wwwroot/*/*"
+      ],
+      "heartBeat": 1000000000,
+      "buildCmd": "go",
+      "buildArgs": [
         "build",
         "-o",
         "build/mywebserver"
       ],
-      "BuildEnvirons": null,
-      "RunCommand": "./mywebserver",
-      "RunArgs": [
+      "buildDir": ".",
+      "runCmd": "./mywebserver",
+      "runArgs": [
         "--bind",
         ":8081"
       ],
-      "RunEnvirons": null,
-      "RunWorkDir": "build",
-      "Globs": [
-        "*.go","embeded/template/*", "embeded/wwwroot/*/*", "embeded/wwwroot/*"
+      "runDir": "build",
+      "runEnv": [
+        "SECRET=friend"
+      ]
+    },
+    {
+      "name": "test",
+      "description": "test",
+      "match": [
+        "*.go"
       ],
-      "HeartBeat": 1000000000
+      "heartBeat": 1000000000,
+      "buildCmd": "true",
+      "buildDir": ".",
+      "runCmd": "go",
+      "runArgs": [
+        "test",
+        "./..."
+      ],
+      "runDir": "."
     }
   ]
 }

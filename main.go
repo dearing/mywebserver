@@ -74,10 +74,17 @@ func main() {
 
 	handler := http.NewServeMux()
 
+	// get the secret from the environment
+	secret := os.Getenv("SECRET")
+	if secret == "" {
+		slog.Warn("SECRET not set, using default")
+		secret = "world"
+	}
+
 	// simple hello handler
 	handler.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("hello received")
-		fmt.Fprintf(w, "hello world!")
+		fmt.Fprintf(w, "hello %s!", secret)
 	})
 
 	// report embedded debug information about ourselves via a template
