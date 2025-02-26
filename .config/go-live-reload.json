@@ -16,7 +16,7 @@
       "buildArgs": [
         "build",
         "-o",
-        "build/mywebserver"
+        "build/"
       ],
       "buildDir": ".",
       "runCmd": "./mywebserver",
