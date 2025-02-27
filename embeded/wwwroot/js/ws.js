@@ -1,6 +1,7 @@
 // ws.js is basic websocket
 
 const wsUrl = window.location.href.replace('http', 'ws').replace('websockets.html', 'ws');
+//const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws`;
 console.log(wsUrl);
 
 ws = new WebSocket(wsUrl);
@@ -35,10 +36,4 @@ function sendMessage(message) {
   } else {
     console.log("WebSocket is not open. Cannot send message.");
   }
-};
-
-// close websocket on leaving the page
-// TODO: in theory this works but not seeing the context closing out on the backend
-window.onbeforeunload = () => {
-  ws.close();
 };

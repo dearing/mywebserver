@@ -128,6 +128,11 @@ func main() {
 		w.Header().Set("Cache-Control", "no-cache")
 		w.Header().Set("Connection", "keep-alive")
 
+		forwardedFor := r.Header.Get("X-Forwarded-For")
+		if forwardedFor != "" {
+			slog.Info("reverse-proxy", "remote", r.RemoteAddr, "X-Forwarded-For", forwardedFor)
+		}
+
 		// check if the client supports flushing
 		flusher, ok := w.(http.Flusher)
 		if !ok {
@@ -168,6 +173,11 @@ func main() {
 			Message string `json:"message"`
 		}
 		defer ws.Close()
+
+		forwardedFor := ws.Request().Header.Get("X-Forwarded-For")
+		if forwardedFor != "" {
+			slog.Info("reverse-proxy", "remote", ws.Request().RemoteAddr, "X-Forwarded-For", forwardedFor)
+		}
 
 		ctx := ws.Request().Context()
 
