@@ -24,6 +24,28 @@
         "--bind",
         ":8081"
       ],
+      "runDir": "build"
+    },
+    {
+      "name": "secret-server",
+      "description": "secret server",
+      "match": [
+        "*.go",
+        "embedded/template/*",
+        "embedded/wwwroot/*",
+        "embedded/wwwroot/*/*"
+      ],
+      "heartBeat": 1000000000,
+      "buildCmd": "sleep",
+      "buildArgs": [
+        "5s"
+      ],
+      "buildDir": ".",
+      "runCmd": "./mywebserver",
+      "runArgs": [
+        "--bind",
+        ":8082"
+      ],
       "runDir": "build",
       "runEnv": [
         "SECRET=friend"
@@ -38,7 +60,7 @@
       }
     },
     "/api/": {
-      "host": "https://localhost:8082",
+      "host": "http://localhost:8082",
       "customHeaders": {
         "Speak-Friend": "mellon"
       },
