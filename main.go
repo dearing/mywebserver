@@ -23,7 +23,7 @@ var argVersion = flag.Bool("version", false, "print version information")
 var bind = flag.String("bind", ":8080", "bind address")
 var sseDuration = flag.Duration("sse-duration", 1*time.Second, "SSE ticker duration")
 
-//go:embed embeded
+//go:embed embedded
 var embedFS embed.FS
 
 func usage() {
@@ -50,14 +50,14 @@ func main() {
 	}
 
 	// get a subtree fs of our embedded fs at wwwFS for static hosting
-	wwwFS, err := fs.Sub(embedFS, "embeded/wwwroot")
+	wwwFS, err := fs.Sub(embedFS, "embedded/wwwroot")
 	if err != nil {
 		slog.Error("main/embedfs/wwwroot", "error", err)
 		return
 	}
 
 	// get a subtree fs of our embedded fs at template for templates
-	templateFS, err := fs.Sub(embedFS, "embeded/template")
+	templateFS, err := fs.Sub(embedFS, "embedded/template")
 	if err != nil {
 		slog.Error("main/embedfs/template", "error", err)
 		return
@@ -91,6 +91,10 @@ func main() {
 	handler.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("version called")
 
+		if r.Header.Get("Test-Header") != "" {
+			slog.Info("version test header", "value", r.Header.Get("Test-Header"))
+		}
+
 		start := time.Now()
 		defer func() {
 			slog.Info("version completed", "duration", time.Since(start))
@@ -104,7 +108,7 @@ func main() {
 			return
 		}
 
-		// at build, go *can* embded handy information about the build
+		// at build, go *can* embed handy information about the build
 		info, ok := debug.ReadBuildInfo()
 		if !ok {
 			slog.Error("version/build info", "error", err)

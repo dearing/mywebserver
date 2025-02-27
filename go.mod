@@ -14,5 +14,5 @@ require golang.org/x/net v0.35.0
 require (
 	github.com/dearing/go-cross-compile v1.0.8 // indirect
 	github.com/dearing/go-github-release v1.0.3 // indirect
-	github.com/dearing/go-live-reload v0.3.1 // indirect
+	github.com/dearing/go-live-reload v0.4.0 // indirect
 )

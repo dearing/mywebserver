@@ -7,9 +7,9 @@
       "description": "frontend webserver",
       "match": [
         "*.go",
-        "embeded/template/*",
-        "embeded/wwwroot/*",
-        "embeded/wwwroot/*/*"
+        "embedded/template/*",
+        "embedded/wwwroot/*",
+        "embedded/wwwroot/*/*"
       ],
       "heartBeat": 1000000000,
       "buildCmd": "go",
@@ -29,5 +29,23 @@
         "SECRET=friend"
       ]
     }
-  ]
+  ],
+  "reverseProxy": {
+    "/": {
+      "host": "http://localhost:8081",
+      "customHeaders": {
+        "Test-Header": "Hello World!"
+      }
+    },
+    "/api/": {
+      "host": "https://localhost:8082",
+      "customHeaders": {
+        "Speak-Friend": "mellon"
+      },
+      "insecureSkipVerify": true
+    }
+  },
+  "bind": ":8443",
+  "tlsCertFile": "/home/jacob/certs/cert.pem",
+  "tlsKeyFile": "/home/jacob/certs/key.pem"
 }
